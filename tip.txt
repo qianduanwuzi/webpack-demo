@@ -1,0 +1,37 @@
+
+v3文档： https://webpack.w3cvip.org/Concepts/
+webpack
+    //webpack.config.js
+    const path = require('path');
+    const config = {
+        entry: './path/to/my/entry/file.js',
+        output: {
+            path: path.resolve(__dirname, 'dist'),
+            filename: 'my-first-webpack.bundle.js'
+        },
+        module: {
+            rules: [
+            { test: /\.txt$/, use: 'raw-loader' }
+            ]
+        }
+    };
+
+    module.exports = config;
+        1.四个核心概念
+            a.入口(entry)    应该使用哪个模块，来作为构建其内部依赖图的开始
+            b.输出(output)   在哪里输出它所创建的 bundles，以及如何命名这些文件
+            c.loader        让webpack能够去处理那些非js文件（webpack 自身只理解 JavaScript）,最终打包到bundles里
+            d.插件(plugins) 用于执行范围更广的任务，比如打包优化、压缩等各种各样的任务
+
+
+
+    1.tree-shaking
+        dev：src/tree-shaking
+        原理：打包过程中排除掉导入未使用的方法（只针对js脚本，css也有tree-shaking，但未够壮大）
+        优点：可以缩小打包体积
+        缺点：只针对es6模块规范，也就是静态解析import export，不针对common.js、amd规范
+        实际案列：1. lodash库，dist里封装的都是各api函数，如果前端没按需导入，如果import {xxx} from 'lodash'。那造成了其他函数用不到从而浪费资源（影响打包体积）。
+                （lodash的dist里并未按照es6模块规范，所以tree-shaking不起作用，估还是需按需导入）
+        理解：可以将应用程序想象成一棵树。实际使用的源代码和库代表树的绿色活树。死码代表秋天消耗的棕色枯叶。为了摆脱枯叶，你必须摇动树，使它们掉下来
+
+    2.code-split
