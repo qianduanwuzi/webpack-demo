@@ -31,7 +31,8 @@ webpack
         优点：可以缩小打包体积
         缺点：只针对es6模块规范，也就是静态解析import export，不针对common.js、amd规范
         实际案列：1. lodash库，dist里封装的都是各api函数，如果前端没按需导入，如果import {xxx} from 'lodash'。那造成了其他函数用不到从而浪费资源（影响打包体积）。
-                （lodash的dist里并未按照es6模块规范，所以tree-shaking不起作用，估还是需按需导入）
+                （lodash的dist里并未按照es6模块规范，所以tree-shaking不起作用，故还是需按需导入）
         理解：可以将应用程序想象成一棵树。实际使用的源代码和库代表树的绿色活树。死码代表秋天消耗的棕色枯叶。为了摆脱枯叶，你必须摇动树，使它们掉下来
 
     2.code-split
+    

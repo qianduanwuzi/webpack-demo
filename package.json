@@ -3,6 +3,11 @@
     "build1": "webpack --config webpack.config.js"
   },
   "devDependencies": {
+    "babel-loader": "^8.0.4",
+    "css-loader": "^2.0.2",
+    "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
+    "vue-loader": "^15.4.2",
     "webpack": "^3.6.0"
   }
 }
