@@ -3,6 +3,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpack = require('webpack')
 const htmlWebpackPlugin  = require('html-webpack-plugin')
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 function resolve (dir) {
     return path.join(__dirname, '..', dir)
   }
@@ -111,17 +112,18 @@ module.exports = {
         //     ],
         //   },
         port: 9999,
-        // contentBase: "./",
+        // contentBase: "/asset",
+        contentBase: false,
         compress: true, // 对所有的服务器资源采用gzip压缩
         hot: true,
         inline: true,
         host: 'localhost',
-        progress: true,
+        // progress: true,
         open: true,
         overlay: true, // 编译出错的时候，在浏览器页面上显示错误
         // stats: "errors-only", // 只打印错误
         // quiet: true, // 类似stats
-        publicPath: '/',
+        // publicPath: '/',
         // watchOptions: {
         //     poll: true,
         //   }
@@ -134,6 +136,15 @@ module.exports = {
             template: './index.html',
             inject: true
         }),
+
+         // copy custom static assets
+        new CopyWebpackPlugin([
+            {
+            from: path.resolve(__dirname, './static'),
+            to: 'static',
+            ignore: ['.*']
+            }
+        ]),
      
         // make sure to include the plugin for the magic
         new VueLoaderPlugin(),
