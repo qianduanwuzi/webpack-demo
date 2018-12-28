@@ -70,7 +70,7 @@ module.exports = {
             // style-loader 将所有的计算后的样式以<style></style>加入页面中 二者组合在一起能够把样式表嵌入webpack打包后的js文件中。
             {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract({
+                use: ExtractTextPlugin.extract({ //CSS 请求并行、更少 style 标签、CSS 单独缓存
                     fallback: "style-loader",
                     use: "css-loader"
                   })
