@@ -70,14 +70,18 @@ module.exports = {
             // style-loader 将所有的计算后的样式以<style></style>加入页面中 二者组合在一起能够把样式表嵌入webpack打包后的js文件中。
             {
                 test: /\.css$/,
-                use: [
-                        { loader: "style-loader" },
-                        { loader: "css-loader" }, //webpack loader的执行顺序是从右到左
-                        // options: {
-                        //     url: true, // 启用/禁用 url() 处理
-                        //     import: true, // 启用/禁用 @import 处理 
-                        // }
-                ]
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                  })
+                // use: [
+                //         { loader: "style-loader" },
+                //         { loader: "css-loader" }, //webpack loader的执行顺序是从右到左
+                //         // options: {
+                //         //     url: true, // 启用/禁用 url() 处理
+                //         //     import: true, // 启用/禁用 @import 处理 
+                //         // }
+                // ]
             },
             {
                 test: /\.vue$/,
