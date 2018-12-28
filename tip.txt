@@ -35,4 +35,6 @@ webpack
         理解：可以将应用程序想象成一棵树。实际使用的源代码和库代表树的绿色活树。死码代表秋天消耗的棕色枯叶。为了摆脱枯叶，你必须摇动树，使它们掉下来
 
     2.code-split
+        代码分割
+        针对vue有三种模式 文档：https://alexjover.com/blog/lazy-load-in-vue-using-webpack-s-code-splitting/
     

@@ -40,8 +40,8 @@ module.exports = {
     },
 
     resolve: {
-        extensions: ['.js', '.vue', '.json'],
-        alias: {
+        extensions: ['.js', '.vue', '.json'], // 扩展： import xxx from "test" 尝试以.js .vue .json尾缀尝试去找文件
+        alias: { // 别名 方便引入文件
           '@': resolve('src'),
           'vue$': 'vue/dist/vue.esm.js',
         }
@@ -115,11 +115,11 @@ module.exports = {
         // contentBase: "/asset",
         contentBase: false,
         compress: true, // 对所有的服务器资源采用gzip压缩
-        hot: true,
-        inline: true,
-        host: 'localhost',
+        hot: true, // 热更新 hmr
+        inline: true, // 实时刷新
+        host: 'localhost', 
         // progress: true,
-        open: true,
+        open: true, // 服务启动时打开网页
         overlay: true, // 编译出错的时候，在浏览器页面上显示错误
         // stats: "errors-only", // 只打印错误
         // quiet: true, // 类似stats
@@ -132,8 +132,8 @@ module.exports = {
     plugins: [
          // 模板
         new htmlWebpackPlugin ({
-            filename: 'index.html',
-            template: './index.html',
+            filename: 'index.html', // 打包生成
+            template: './index.html', // 本地模板
             inject: true
         }),
 

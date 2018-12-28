@@ -8,6 +8,7 @@ Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
+    // 挂在到id=app的模板引擎上
   el: '#app',
   router,
   components: { App },
