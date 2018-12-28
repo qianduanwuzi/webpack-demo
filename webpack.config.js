@@ -25,6 +25,7 @@ module.exports = {
     // },
 
     // 多页面(与单页面的区别?)
+        // 多页面会刷新页面
     // entry: {
     //     pageOne: './src/pageOne/index.js',
     //     pageTwo: './src/pageTwo/index.js',
@@ -34,7 +35,7 @@ module.exports = {
     // 出口: webpack 如何向硬盘写入编译文件(即使可以存在多个入口起点，但只指定一个输出配置)
     output: {
         filename: '[name].js', // 输出文件的文件名
-        // filename: '[name].js', // 占位符确保文件是唯一的
+        // filename: '[name].js', // []占位符确保文件是唯一的
         path: path.resolve(__dirname, 'dist'), //目标输出目录 path 的绝对路径
         publicPath: '/', //(???)
     },
@@ -55,8 +56,8 @@ module.exports = {
         rules: [
             // 文件大小（单位 byte）低于指定的限制时，可以返回一个 base64
             {
-                test: /\.(png|jpg|gif)$/,
-                use: [
+                test: /\.(png|jpg|gif)$/, // 正则匹配
+                use: [ // loader解析
                     {
                       loader: 'url-loader',
                       options: {
@@ -68,13 +69,15 @@ module.exports = {
             },
             // css-loader 解析.css 解释(interpret) @import 和 url()
             // style-loader 将所有的计算后的样式以<style></style>加入页面中 二者组合在一起能够把样式表嵌入webpack打包后的js文件中。
+            // ----------------1.剥离css------------------
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({ //CSS 请求并行、更少 style 标签、CSS 单独缓存
                     fallback: "style-loader",
                     use: "css-loader"
                   })
-                // use: [
+                // --------------2.演示正常编译后效果--------------
+                // use: [ 
                 //         { loader: "style-loader" },
                 //         { loader: "css-loader" }, //webpack loader的执行顺序是从右到左
                 //         // options: {
@@ -141,7 +144,7 @@ module.exports = {
             inject: true
         }),
 
-         // copy custom static assets
+         // copy 静态资源（不会打包，注意前端需绝对路径引入资源）
         new CopyWebpackPlugin([
             {
             from: path.resolve(__dirname, './static'),
@@ -154,6 +157,7 @@ module.exports = {
         new VueLoaderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
+        // 抽取css命名
         new ExtractTextPlugin("[name]-[chunkhash].css")
       ]
 }
